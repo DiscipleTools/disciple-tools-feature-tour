@@ -210,7 +210,7 @@
   <!-- <rule ref="Generic.Commenting.DocComment"/> -->
 
   <!-- Rejecting these ones: -->
-  <!-- <rule ref="Generic.Commenting.Todo"/> -->
+  <!-- <rule ref="Generic.Commenting.TODO"/> -->
   <!-- <rule ref="Generic.CodeAnalysis.EmptyStatement"/> -->
   <!-- <rule ref="Generic.Formatting.MultipleStatementAlignment"/> -->
   <!-- <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/> -->
