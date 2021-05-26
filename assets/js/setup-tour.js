@@ -26,7 +26,7 @@ jQuery(function ($) {
             view_posts_tour,
         } = escapeObject(window.tour_settings.list_tour_translations)
 
-        if ( false && isTourCompleted(tourId) ) {
+        if ( isTourCompleted(tourId) ) {
             return
         }
 
