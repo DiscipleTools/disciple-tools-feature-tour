@@ -32,24 +32,26 @@ jQuery(function ($) {
 
         const tour = createTour()
 
-        createStep(tour, '.create-post-desktop', 'bottom', {
+        // Note: make sure that only visible elements go in the tour
+        // otherwise the beforeShowPromise will break the back button
+        isElementVisible('.create-post-desktop') && createStep(tour, '.create-post-desktop', 'bottom', {
             id: 'create-contact',
             text: create_post_tour,
         }, {
             firstStep: true,
         });
-        createStep(tour, '.create-post-mobile', 'bottom', {
+        isElementVisible('.create-post-mobile') && createStep(tour, '.create-post-mobile', 'bottom', {
             id: 'create-contact-mobile',
             text: create_post_tour,
         }, {
             firstStep: true,
         });
 
-        createStep(tour, '.filter-posts-desktop', 'bottom', {
+        isElementVisible('.filter-posts-desktop') && createStep(tour, '.filter-posts-desktop', 'bottom', {
             id: 'filter-contacts',
             text: filter_posts_tour,
         });
-        createStep(tour, '.filter-posts-mobile', 'bottom', {
+        isElementVisible('.filter-posts-mobile') && createStep(tour, '.filter-posts-mobile', 'bottom', {
             id: 'filter-contacts-mobile',
             text: filter_posts_tour,
         });
