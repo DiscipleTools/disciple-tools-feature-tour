@@ -79,6 +79,8 @@ class Disciple_Tools_Feature_Tour {
             require_once( 'admin/admin-menu-and-tabs.php' ); // adds starter admin page and section for plugin
         }
 
+        require_once( 'functions.php' );
+
         $this->i18n();
 
     }
