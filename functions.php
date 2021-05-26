@@ -2,7 +2,6 @@
 
 function dt_tour_scripts()
 {
-    error_log( '*** file path = ' . plugin_dir_path( __FILE__ ) . 'assets/js/setup-tour.js' );
     wp_enqueue_script( 'jquery' );
     wp_enqueue_script('tour', 'https://cdn.jsdelivr.net/npm/shepherd.js@5.0.1/dist/js/shepherd.js', false, '5.0.1', true);
     $relative_file_path = 'assets/js/setup-tour.js';
@@ -36,5 +35,41 @@ function dt_tour_scripts()
     ) );
 }
 
-
 add_action( 'wp_enqueue_scripts', 'dt_tour_scripts', 999 );
+
+function dt_tour_add_api_routes()
+{
+    $version = 1;
+    $context = 'dt_tour';
+    register_rest_route(
+        "$context/v$version", '/users/disable_product_tour/', [
+            'methods' => "POST",
+            'callback' => 'disable_product_tour',
+            'permission_callback' => '__return_true',
+        ]
+    );
+}
+
+function disable_product_tour( WP_REST_Request $request ) {
+    $params = $request->get_json_params();
+
+    $tour_ids = [
+        'list_tour',
+    ];
+    if ( !isset( $params['tour_id'] ) ) {
+        return new WP_Error( "missing_error", "Missing fields", [ 'status' => 400 ] );
+    }
+
+    if ( !in_array( $params['tour_id'], $tour_ids, true ) ) {
+        return new WP_Error( "invalid_tour", "Invalid tour id", [ 'status' => 400 ] );
+    }
+
+    $completed_tours = get_user_meta( get_current_user_id(), 'dt_product_tour' );
+    if ( in_array( $params['tour_id'], $completed_tours ) ) {
+        return new WP_Error( "tour_complete", "Tour already complete", [ 'status' => 400 ] );
+    }
+
+    return update_user_meta( get_current_user_id(), 'dt_product_tour', $params['tour_id'] );
+}
+
+add_action( 'rest_api_init', 'dt_tour_add_api_routes' );

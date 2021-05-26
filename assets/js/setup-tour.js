@@ -71,7 +71,7 @@ jQuery(function ($) {
     }
 
     function setTourCompleted(id) {
-        makeRequest('POST', `users/disable_product_tour/`, { tour_id: id })
+        makeRequest('POST', `users/disable_product_tour/`, { tour_id: id }, 'dt_tour/v1/')
     }
 
     function isElementVisible(selector) {
